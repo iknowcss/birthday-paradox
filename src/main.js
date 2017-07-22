@@ -36,7 +36,7 @@ if (module.hot) {
   module.hot.accept('./AppRoot', () => {
     const NextAppRoot = require('./AppRoot').default; // eslint-disable-line global-require
     ReactDOM.render(React.createElement(AppContainer, null,
-      React.createElement(NextAppRoot, { store, history }),
+      React.createElement(NextAppRoot, { store }),
     ), rootElement);
   });
 }

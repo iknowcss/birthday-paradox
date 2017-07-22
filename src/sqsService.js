@@ -1,4 +1,4 @@
-import { pollInit, messageReceiveSuccess } from './actionCreators';
+import { messageReceiveSuccess } from './actionCreators';
 
 const sqs = new AWS.SQS({
   apiVersion: '2012-11-05',
@@ -53,9 +53,15 @@ export function deleteMessages(messages) {
   });
 }
 
-export async function init(store) {
-  if (store.getState().initialised) return;
-  store.dispatch(pollInit());
+let store;
+export function init(_store) {
+  if (!store) {
+    store = _store;
+  }
+}
+
+export async function startPolling() {
+  if (store.getState().app.polling) return;
 
   while (true) {
     const newMessages = await receiveMessages();

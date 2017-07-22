@@ -1,4 +1,5 @@
 import actionTypes from './actionTypes';
+import * as sqsService from './sqsService';
 
 export function messageReceiveSuccess(messages) {
   return {
@@ -8,5 +9,6 @@ export function messageReceiveSuccess(messages) {
 }
 
 export function pollInit() {
+  sqsService.startPolling();
   return { type: actionTypes.message.POLL_INIT };
 }
