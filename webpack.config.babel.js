@@ -8,6 +8,7 @@ const outputPath = path.join(__dirname, './dist');
 export default () => {
   const isProduction = process.env.NODE_ENV === 'production';
   const isDevelopment = process.env.NODE_ENV === 'development';
+  const isBundleAnalyze = process.env.BUNDLE_ANALYZE === 'true';
 
   const config = {
     entry: {
@@ -76,7 +77,6 @@ export default () => {
       ],
     },
     plugins: [
-      // new BundleAnalyzerPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV),
@@ -122,6 +122,10 @@ export default () => {
       }),
     );
     config.devServer.hot = false;
+  }
+
+  if (isBundleAnalyze) {
+    config.plugins.unshift(new BundleAnalyzerPlugin());
   }
 
   return config;

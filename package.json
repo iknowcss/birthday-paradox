@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot --inline",
     "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle-analyze": "cross-env BUNDLE_ANALYZE=true npm run build"
   },
   "author": "Cody Jenkins <iknowcss@gmail.com>",
   "repository": "https://github.com/iknowcss/birthday-paradox",
@@ -20,7 +21,6 @@
     "react-autobind": "^1.0.6",
     "react-dom": "^15.6.1",
     "react-hot-loader": "^3.0.0-beta.7",
-    "react-mdl": "^1.10.3",
     "react-redux": "^5.0.5",
     "redux": "^3.7.2",
     "redux-form": "^7.0.1",
