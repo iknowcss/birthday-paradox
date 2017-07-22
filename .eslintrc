@@ -1,0 +1,26 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "import/prefer-default-export": [0],
+    "no-unused-expressions": [0],
+    "no-throw-literal": [0],
+    "class-methods-use-this": [0]
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "fetch": true,
+    "describe": true,
+    "it": true,
+    "before": true,
+    "beforeEach": true,
+    "after": true,
+    "afterEach": true,
+    "expect": true,
+    "shallow": true,
+    "mount": true,
+    "mountConnected": true,
+    "sinon": true,
+    "CustomEvent": true
+  }
+}
