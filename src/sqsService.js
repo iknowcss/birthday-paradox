@@ -53,13 +53,11 @@ export function deleteMessages(messages) {
   });
 }
 
-let initalised = false;
 export async function init(store) {
-  if (initalised) return;
-
+  if (store.getState().initialised) return;
   store.dispatch(pollInit());
-  initalised = true;
-  for (var i = 0; i < 3; i++) {
+
+  while (true) {
     const newMessages = await receiveMessages();
     if (newMessages.length > 0) {
       store.dispatch(messageReceiveSuccess(newMessages));
