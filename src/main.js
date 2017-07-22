@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 // import './layout/main.scss';
 import reducer from './reducer';
 import AppRoot from './AppRoot';
+import * as sqsService from './sqsService';
 
 const enhancers = [applyMiddleware(thunk)];
 
@@ -18,6 +19,7 @@ if (window.__REDUX_DEVTOOLS_EXTENSION__) {
 /* eslint-enable */
 
 const store = createStore(reducer, compose(...enhancers));
+sqsService.init(store);
 
 const rootElement = document.getElementById('app'); // eslint-disable-line no-undef
 
@@ -38,36 +40,3 @@ if (module.hot) {
     ), rootElement);
   });
 }
-
-// var sqs = new AWS.SQS({
-//   apiVersion: '2012-11-05'
-// });
-
-/// http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SQS.html#sendMessage-property
-// var params = {
-//   MessageBody: 'STRING_VALUE', /* required */
-//   QueueUrl: 'STRING_VALUE', /* required */
-//   DelaySeconds: 0,
-//   MessageAttributes: {
-//     '<String>': {
-//       DataType: 'STRING_VALUE', /* required */
-//       BinaryListValues: [
-//         new Buffer('...') || 'STRING_VALUE',
-//         /* more items */
-//       ],
-//       BinaryValue: new Buffer('...') || 'STRING_VALUE',
-//       StringListValues: [
-//         'STRING_VALUE',
-//         /* more items */
-//       ],
-//       StringValue: 'STRING_VALUE'
-//     },
-//     /* '<String>': ... */
-//   },
-//   MessageDeduplicationId: 'STRING_VALUE',
-//   MessageGroupId: 'STRING_VALUE'
-// };
-// sqs.sendMessage(params, function(err, data) {
-//   if (err) console.log(err, err.stack); // an error occurred
-//   else     console.log(data);           // successful response
-// });
