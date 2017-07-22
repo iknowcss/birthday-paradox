@@ -32,7 +32,7 @@ ReactDOM.render(React.createElement(AppContainer, null,
 // - Hot re-render ---------------------------------------------------------------------------------
 
 // TODO: cjenkins include this only when process.env.NODE_ENV=development
-if (module.hot) {
+if (process.env === 'development' && module.hot) {
   module.hot.accept('./AppRoot', () => {
     const NextAppRoot = require('./AppRoot').default; // eslint-disable-line global-require
     ReactDOM.render(React.createElement(AppContainer, null,
