@@ -1,3 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
+import autobind from 'react-autobind';
 
-export default () => <div>你好，世界!</div>;
+class AppRoot extends Component {
+  constructor () {
+    super();
+    autobind(this, 'handleClick');
+  }
+
+  handleClick() {
+    alert('hi')
+  }
+
+  render() {
+    return (
+      <section>
+        <div>Click the button</div>
+        <div>
+          <button
+            onClick={this.handleClick}
+          >Button</button>
+        </div>
+      </section>
+    );
+  }
+}
+
+export default AppRoot;
