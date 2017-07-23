@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import autobind from 'react-autobind';
 import get from 'lodash/get';
 import queryString from 'query-string';
 import BirthdayList from './BirthdayList';
 import { initSQS } from './presenterActionCreators';
 
 class PresenterPage extends Component {
-  constructor() {
-    super();
-    autobind(this, 'handleSqsStartClick');
-  }
-
   componentDidMount() {
     const { accessKeyId, secretAccessKey } = this.props;
     this.props.initSQS({ accessKeyId, secretAccessKey });

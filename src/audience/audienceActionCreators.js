@@ -7,6 +7,7 @@ const {
   SUBMIT_BIRTHDAY_START,
   SUBMIT_BIRTHDAY_SUCCESS,
   SUBMIT_BIRTHDAY_ERROR,
+  SUBMIT_BIRTHDAY_RESET,
 } = actionTypes.audience;
 
 export const submitBirthday = birthday => async (dispatch) => {
@@ -16,7 +17,10 @@ export const submitBirthday = birthday => async (dispatch) => {
   try {
     result = await simpleFetch(SUBMIT_URL, {
       method: 'POST',
-      body: birthday
+      body: {
+        day: parseInt(birthday.day, 10),
+        month: parseInt(birthday.month, 10),
+      }
     });
   } catch (e) {
     result = { ok: false, body: e.stack };
@@ -31,4 +35,8 @@ export const submitBirthday = birthday => async (dispatch) => {
   } else {
     dispatch({ type: SUBMIT_BIRTHDAY_SUCCESS });
   }
+
+  setTimeout(() => {
+    dispatch({ type: SUBMIT_BIRTHDAY_RESET });
+  }, 2000);
 };

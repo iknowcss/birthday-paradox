@@ -3,9 +3,29 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import range from 'lodash/range';
 
-const RangeSelectField = ({ input, start, end, disabled }) => (
+const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+const RangeSelectField = ({ input, start, end, options, disabled }) => (
   <select disabled={disabled} {...input}>
-    {range(start, end + 1).map(n => <option key={n}>{n}</option>)}
+    {options
+      ? options.map(({ value, text }) =>
+        <option key={value} value={value}>{text}</option>)
+      : range(start, end + 1).map(n =>
+        <option key={n}>{n}</option>)
+    }
   </select>
 );
 
@@ -30,8 +50,7 @@ class BirthdayPickerForm extends Component {
             name="month"
             component={RangeSelectField}
             disabled={disabled}
-            start={1}
-            end={12}
+            options={MONTHS.map((m, i) => ({ value: i + 1, text: m }))}
           />
         </div>
         <button disabled={disabled}>Submit</button>
