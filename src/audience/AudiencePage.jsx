@@ -1,14 +1,33 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import autobind from 'react-autobind';
 import BirthdayPickerForm from './BirthdayPickerForm';
+import { submitBirthday } from './audienceActionCreators';
 
-export default () => <BirthdayPickerForm />
+class AudiencePage extends Component {
+  constructor() {
+    super();
+    autobind(this, 'handleBirthdayPickerFormSubmit')
+  }
 
-// handleBirthdayPickerFormSubmit({ day, month }) {
-//   sendMessage({ day, month });
-// }
+  handleBirthdayPickerFormSubmit(data) {
+    this.props.submitBirthday(data);
+  }
 
-//
-// <BirthdayPickerForm
-//   onSubmit={this.handleBirthdayPickerFormSubmit}
-// />
-// <BirthdayList />
+  render() {
+    return (
+      <div>
+        <BirthdayPickerForm onSubmit={this.handleBirthdayPickerFormSubmit} />
+      </div>
+    )
+  }
+}
+
+AudiencePage.propTypes = {
+  submitBirthday: PropTypes.func.isRequired,
+};
+
+export { AudiencePage as Pure };
+
+export default connect(state => ({}), {submitBirthday})(AudiencePage);
