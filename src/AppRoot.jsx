@@ -1,32 +1,25 @@
 import React, { Component } from 'react';
-import autobind from 'react-autobind';
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import BirthdayPickerForm from './BirthdayPickerForm';
-import BirthdayList from './BirthdayList';
-import { sendMessage } from './sqsService';
+import { Router, Route, IndexRedirect } from 'react-router';
+import AudiencePage from './audience/AudiencePage';
+import PresenterPage from './presenter/PresenterPage';
 
-class AppRoot extends Component {
-  constructor () {
-    super();
-    autobind(this, 'handleBirthdayPickerFormSubmit');
-  }
+const AppRoot = ({ store, history }) => (
+  <Provider store={store}>
+    <Router history={history}>
+      <Route path="/">
+        <IndexRedirect to="/audience" />
+        <Route path="/audience" component={AudiencePage} />
+        <Route path="/presenter" component={PresenterPage} />
+      </Route>
+    </Router>
+  </Provider>
+);
 
-  handleBirthdayPickerFormSubmit({ day, month }) {
-    sendMessage({ day, month });
-  }
-
-  render() {
-    return (
-      <Provider store={this.props.store}>
-        <div>
-          <BirthdayPickerForm
-            onSubmit={this.handleBirthdayPickerFormSubmit}
-          />
-          <BirthdayList />
-        </div>
-      </Provider>
-    );
-  }
-}
+AppRoot.propTypes = {
+  store: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+};
 
 export default AppRoot;

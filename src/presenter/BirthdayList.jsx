@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import autobind from 'react-autobind';
-import { pollInit } from './actionCreators';
+import { pollInit } from '../actionCreators';
 
 class BirthdayList extends Component {
   constructor() {

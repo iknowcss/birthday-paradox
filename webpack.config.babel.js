@@ -124,6 +124,10 @@ export default () => {
     config.devServer.hot = false;
   }
 
+  if (isDevelopment) {
+    config.devtool = 'eval-source-map';
+  }
+
   if (isBundleAnalyze) {
     config.plugins.unshift(new BundleAnalyzerPlugin());
   }
