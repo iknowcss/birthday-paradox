@@ -16,9 +16,13 @@ class AudiencePage extends Component {
   }
 
   render() {
+    const { submitStatus } = this.props;
     return (
       <div>
-        <BirthdayPickerForm onSubmit={this.handleBirthdayPickerFormSubmit} />
+        <BirthdayPickerForm
+          disabled={submitStatus !== 'ready'}
+          onSubmit={this.handleBirthdayPickerFormSubmit}
+        />
       </div>
     )
   }
@@ -26,8 +30,11 @@ class AudiencePage extends Component {
 
 AudiencePage.propTypes = {
   submitBirthday: PropTypes.func.isRequired,
+  submitStatus: PropTypes.string.isRequired,
 };
 
 export { AudiencePage as Pure };
 
-export default connect(state => ({}), {submitBirthday})(AudiencePage);
+export default connect(state => ({
+  submitStatus: state.app.audience.submitStatus,
+}), {submitBirthday})(AudiencePage);

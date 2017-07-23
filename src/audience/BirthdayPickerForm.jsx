@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import range from 'lodash/range';
 
-const RangeSelectField = ({ input, start, end }) => (
-  <select {...input}>
+const RangeSelectField = ({ input, start, end, disabled }) => (
+  <select disabled={disabled} {...input}>
     {range(start, end + 1).map(n => <option key={n}>{n}</option>)}
   </select>
 );
 
-class AppRoot extends Component {
+class BirthdayPickerForm extends Component {
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, disabled } = this.props;
     return (
       <form onSubmit={handleSubmit}>
         <div>
@@ -18,6 +19,7 @@ class AppRoot extends Component {
           <Field
             name="day"
             component={RangeSelectField}
+            disabled={disabled}
             start={1}
             end={31}
           />
@@ -27,17 +29,26 @@ class AppRoot extends Component {
           <Field
             name="month"
             component={RangeSelectField}
+            disabled={disabled}
             start={1}
             end={12}
           />
         </div>
-        <button>Submit</button>
+        <button disabled={disabled}>Submit</button>
       </form>
     );
   }
 }
 
-export { AppRoot as Pure };
+BirthdayPickerForm.propTypes = {
+  disabled: PropTypes.bool,
+};
+
+BirthdayPickerForm.defaultValues = {
+  disabled: false,
+};
+
+export { BirthdayPickerForm as Pure };
 
 export default reduxForm({
   form: 'birthday-picker',
@@ -45,4 +56,4 @@ export default reduxForm({
     day: 1,
     month: 1,
   }
-})(AppRoot);
+})(BirthdayPickerForm);

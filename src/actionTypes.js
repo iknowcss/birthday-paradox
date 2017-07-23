@@ -7,5 +7,6 @@ export default {
     SUBMIT_BIRTHDAY_START: '@@birthday-paradox/audience/SUBMIT_BIRTHDAY_START',
     SUBMIT_BIRTHDAY_SUCCESS: '@@birthday-paradox/audience/SUBMIT_BIRTHDAY_SUCCESS',
     SUBMIT_BIRTHDAY_ERROR: '@@birthday-paradox/audience/SUBMIT_BIRTHDAY_ERROR',
+    SUBMIT_BIRTHDAY_RESET: '@@birthday-paradox/audience/SUBMIT_BIRTHDAY_RESET',
   }
 };
