@@ -8,5 +8,10 @@ export default {
     SUBMIT_BIRTHDAY_SUCCESS: '@@birthday-paradox/audience/SUBMIT_BIRTHDAY_SUCCESS',
     SUBMIT_BIRTHDAY_ERROR: '@@birthday-paradox/audience/SUBMIT_BIRTHDAY_ERROR',
     SUBMIT_BIRTHDAY_RESET: '@@birthday-paradox/audience/SUBMIT_BIRTHDAY_RESET',
+  },
+  presenter: {
+    INIT_SQS: '@@birthday-paradox/presenter/INIT_SQS',
+    INIT_SQS_ERROR: '@@birthday-paradox/presenter/INIT_SQS_ERROR',
+    SQS_POLL_SUCCESS: '@@birthday-paradox/presenter/SQS_POLL_SUCCESS',
   }
 };

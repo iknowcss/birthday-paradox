@@ -7,7 +7,6 @@ import { hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import reducer from './reducer';
 import AppRoot from './AppRoot';
-import * as sqsService from './sqsService';
 
 const enhancers = [applyMiddleware(thunk)];
 
@@ -21,7 +20,6 @@ if (window.__REDUX_DEVTOOLS_EXTENSION__) {
 
 const store = createStore(reducer, compose(...enhancers));
 const history = syncHistoryWithStore(hashHistory, store);
-sqsService.init(store);
 
 // - Initial render ------------------------------------------------------------
 

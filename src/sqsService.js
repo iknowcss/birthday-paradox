@@ -1,14 +1,6 @@
-import { messageReceiveSuccess } from './actionCreators';
-
-const sqs = new AWS.SQS({
-  apiVersion: '2012-11-05',
-  endpoint: 'https://sqs.ap-southeast-2.amazonaws.com',
-  region: 'ap-southeast-2',
-});
-
 const QUEUE_URL = 'https://sqs.ap-southeast-2.amazonaws.com/784116978440/birthday-paradox';
 
-const sqsCall = (method, params) => {
+function sqsCall(method, params) {
   console.info(`[sqsService] ${method} - start`);
   return new Promise((res, rej) => {
     sqs[method](params, (err, data) => {
@@ -21,16 +13,9 @@ const sqsCall = (method, params) => {
       }
     });
   });
-};
-
-export function sendMessage(message) {
-  return sqsCall('sendMessage', {
-    MessageBody: JSON.stringify(message),
-    QueueUrl: QUEUE_URL,
-  });
 }
 
-export async function receiveMessages() {
+async function receiveMessages() {
   const { Messages } = await sqsCall('receiveMessage', {
     QueueUrl: QUEUE_URL,
     MaxNumberOfMessages: 10,
@@ -43,7 +28,7 @@ export async function receiveMessages() {
   }));
 }
 
-export function deleteMessages(messages) {
+function deleteMessages(messages) {
   return sqsCall('deleteMessageBatch', {
     QueueUrl: QUEUE_URL,
     Entries: messages.map(m => ({
@@ -53,21 +38,28 @@ export function deleteMessages(messages) {
   });
 }
 
-let store;
-export function init(_store) {
-  if (!store) {
-    store = _store;
-  }
-}
+let receiveCallback;
+let sqs;
+export default {
+  async init(options, cb) {
+    const sqsConfig = {
+      apiVersion: '2012-11-05',
+      endpoint: 'https://sqs.ap-southeast-2.amazonaws.com',
+      region: 'ap-southeast-2',
+      ...options
+    };
 
-export async function startPolling() {
-  if (store.getState().app.polling) return;
+    if (!receiveCallback) {
+      receiveCallback = cb;
+      sqs = new AWS.SQS(sqsConfig);
 
-  while (true) {
-    const newMessages = await receiveMessages();
-    if (newMessages.length > 0) {
-      store.dispatch(messageReceiveSuccess(newMessages));
-      await deleteMessages(newMessages);
+      while (true) {
+        const newMessages = await receiveMessages();
+        if (newMessages.length > 0) {
+          receiveCallback(newMessages);
+          await deleteMessages(newMessages);
+        }
+      }
     }
   }
-}
+};
