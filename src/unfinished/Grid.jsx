@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import styles from './Grid.scss';
 
 const Grid = ({ className, style, children }) => (
   <div
-    className={classnames(className)}
+    className={classnames(styles.grid, className)}
     style={style}
   >{children}</div>
 );

@@ -1,0 +1,40 @@
+.cell {
+  box-sizing: border-box;
+
+  &--top { align-self: flex-start; }
+  &--middle { align-self: center; }
+  &--bottom { align-self: flex-end; }
+
+  @for $i from 0 through 12 {
+    &--phone-#{$i}-col { width: $i / 12 * 100%; }
+    &--phone-#{$i}-push { margin-left: $i / 12 * 100%; }
+  }
+
+  @media only screen and (min-width : 600px) {
+    @for $i from 0 through 12 {
+      &--tabPort-#{$i}-col { width: $i / 12 * 100%; }
+      &--tabPort-#{$i}-push { margin-left: $i / 12 * 100%; }
+    }
+  }
+
+  @media only screen and (min-width : 900px) {
+    @for $i from 0 through 12 {
+      &--tabLand-#{$i}-col { width: $i / 12 * 100%; }
+      &--tabLand-#{$i}-push { margin-left: $i / 12 * 100%; }
+    }
+  }
+
+  @media only screen and (min-width : 1200px) {
+    @for $i from 0 through 12 {
+      &--desktop-#{$i}-col { width: $i / 12 * 100%; }
+      &--desktop-#{$i}-push { margin-left: $i / 12 * 100%; }
+    }
+  }
+
+  @media only screen and (min-width : 1800px) {
+    @for $i from 0 through 12 {
+      &--desktopBig-#{$i}-col { width: $i / 12 * 100%; }
+      &--desktopBig-#{$i}-push { margin-left: $i / 12 * 100%; }
+    }
+  }
+}
