@@ -1,4 +1,3 @@
-@mixin font-ssp($size: 18px) {
+@mixin font-ssp() {
   font-family: "Source Sans Pro", sans-serif;
-  font-size: $size;
 }

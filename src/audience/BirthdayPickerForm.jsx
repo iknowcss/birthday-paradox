@@ -26,7 +26,11 @@ const MONTHS = [
 const RangeSelectField = (props) => {
   const { input, start, end, options, className, disabled} = props;
   return (
-    <select disabled={disabled} {...input} className={className}>
+    <select
+      disabled={disabled}
+      {...input}
+      className={classnames(theme.select, className)}
+    >
       {options
         ? options.map(({ value, text }) =>
         <option key={value} value={value}>{text}</option>)

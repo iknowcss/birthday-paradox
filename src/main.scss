@@ -7,24 +7,6 @@ html, body {
   height: 100%;
 }
 
-body {
-  @include font-ssp();
-
-  background-color: $color-white;
-  color: $color-navy;
-  box-sizing: border-box;
-  padding: 0 30px;
-
-  &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    content: '';
-    border-top: 1rem solid $color-navy;
-  }
-}
-
 :global {
   #app {
     height: 100%;

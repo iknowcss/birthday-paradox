@@ -5,14 +5,14 @@
 }
 
 .inputLabel {
-  @include font-ssp(24px);
+  @include font-ssp();
 
   display: block;
-  margin: 10px 0;
+  margin: .5rem 0;
 }
 
 .inputField {
-  @include font-ssp(24px);
+  @include font-ssp();
 
   width: 90%;
 }
@@ -22,9 +22,9 @@
 }
 
 .submitButton {
-  @include font-ssp(24px);
+  @include font-ssp();
 
-  margin: 60px 0 0 0;
+  margin: 2rem 0 0 0;
   width: 90%;
 
   @media only screen and (min-width : 600px) {

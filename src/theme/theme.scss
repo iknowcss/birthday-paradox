@@ -14,23 +14,66 @@
   }
 }
 
+html {
+  font-size: 18px;
+
+  @media only screen and (min-width : 600px) {
+    font-size: 24px;
+  }
+
+  @media only screen and (min-width : 900px) {
+    font-size: 36px;
+  }
+
+  @media only screen and (min-width : 1200px) {
+    font-size: 40px;
+  }
+}
+
+body {
+  @include font-ssp();
+
+  background-color: $color-white;
+  color: $color-navy;
+  box-sizing: border-box;
+  padding: 0 30px;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    content: '';
+    border-top: 1rem solid $color-navy;
+  }
+}
+
 .h1 {
-  font-size: 50px;
+  font-size: 2rem;
 }
 
 .h2 {
-  font-size: 36px;
+  font-size: 1.25rem;
+}
+
+.select, .button {
+  @include font-ssp();
+
+  font-size: 1rem;
+}
+
+.select {
+
 }
 
 .button {
-  @include font-ssp();
   @include shadow();
 
   background-color: $color-sky-blue;
   border: none;
-  border-radius: 3px;
-  color: $color-white;
+  border-radius: 0.2rem;
   box-sizing: border-box;
+  color: $color-white;
   padding: 0 1.5em;
   cursor: pointer;
   line-height: 2em;
