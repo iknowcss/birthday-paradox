@@ -3,11 +3,35 @@
 @import './theme/color';
 @import './theme/font';
 
+html, body {
+  height: 100%;
+}
+
 body {
   @include font-ssp();
 
   background-color: $color-white;
-  border-top: 10px solid $color-navy;
   color: $color-navy;
+  box-sizing: border-box;
+  padding: 0 30px;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    content: '';
+    border-top: 1rem solid $color-navy;
+  }
 }
 
+:global {
+  #app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
+  }
+}

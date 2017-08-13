@@ -18,6 +18,10 @@
   font-size: 50px;
 }
 
+.h2 {
+  font-size: 36px;
+}
+
 .button {
   @include font-ssp();
   @include shadow();
@@ -28,6 +32,7 @@
   color: $color-white;
   box-sizing: border-box;
   padding: 0 1.5em;
+  cursor: pointer;
   line-height: 2em;
   text-transform: uppercase;
 

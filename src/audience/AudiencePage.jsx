@@ -21,7 +21,7 @@ class AudiencePage extends Component {
   render() {
     const { submitStatus } = this.props;
     return (
-      <div>
+      <div className={styles.flexContainer}>
         <h1
           className={classnames(theme.h1, styles.title)}
         >The Birthday Paradox</h1>
@@ -29,6 +29,7 @@ class AudiencePage extends Component {
           className={classnames(theme.h2, styles.instructions)}
         >Enter your birthday</h2>
         <BirthdayPickerForm
+          className={styles.form}
           disabled={submitStatus !== 'ready'}
           onSubmit={this.handleBirthdayPickerFormSubmit}
         />

@@ -1,16 +1,19 @@
+@import '../theme/font';
+
 .inputCell {
   text-align: center;
 }
 
 .inputLabel {
+  @include font-ssp(24px);
+
   display: block;
-  font-size: 24px;
   margin: 10px 0;
 }
 
 .inputField {
-  font-family: Helvetica, sans-serif;
-  font-size: 24px;
+  @include font-ssp(24px);
+
   width: 90%;
 }
 
@@ -19,6 +22,12 @@
 }
 
 .submitButton {
-  font-size: 24px;
-  margin: 20px 0;
+  @include font-ssp(24px);
+
+  margin: 60px 0 0 0;
+  width: 90%;
+
+  @media only screen and (min-width : 600px) {
+    width: auto;
+  }
 }

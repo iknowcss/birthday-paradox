@@ -41,7 +41,7 @@ class BirthdayPickerForm extends Component {
   render() {
     const { handleSubmit, disabled } = this.props;
     return (
-      <form onSubmit={handleSubmit}>
+      <form className={this.props.className} onSubmit={handleSubmit}>
         <Grid>
           <Cell
             className={styles.inputCell}
@@ -81,7 +81,11 @@ class BirthdayPickerForm extends Component {
           </Cell>
         </Grid>
         <Grid>
-          <Cell className={styles.submitCell} col={12}>
+          <Cell
+            className={styles.submitCell}
+            phonePush={2}
+            phoneCol={8}
+          >
             <button
               className={classnames(theme.button, styles.submitButton)}
               disabled={disabled}
@@ -97,10 +101,12 @@ class BirthdayPickerForm extends Component {
 
 BirthdayPickerForm.propTypes = {
   disabled: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 BirthdayPickerForm.defaultValues = {
   disabled: false,
+  className: '',
 };
 
 export { BirthdayPickerForm as Pure };
