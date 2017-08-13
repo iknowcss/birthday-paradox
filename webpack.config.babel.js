@@ -98,6 +98,11 @@ export default () => {
   };
 
   if (isProduction) {
+    config.resolve.alias = {
+      react: 'preact-compat',
+      'react-dom': 'preact-compat',
+      'create-react-class': 'preact-compat/lib/create-react-class',
+    };
     config.plugins.push(
       new webpack.LoaderOptionsPlugin({
         minimize: true,
