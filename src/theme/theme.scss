@@ -8,10 +8,10 @@
 @mixin shadow() {
   @include transition(box-shadow);
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+}
 
-  &:hover {
-    box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.23);
-  }
+@mixin shadowHover() {
+  box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.23);
 }
 
 html {
@@ -67,7 +67,13 @@ body {
 }
 
 .button {
-  @include shadow();
+  &:not([disabled]) {
+    @include shadow();
+
+    &:hover {
+      @include shadowHover();
+    }
+  }
 
   background-color: $color-sky-blue;
   border: none;
@@ -78,8 +84,14 @@ body {
   cursor: pointer;
   line-height: 2em;
   text-transform: uppercase;
+  outline: none;
 
   &:hover {
     background-color: $color-sky-blue--light;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    background-color: $color-gray-chateau--light;
   }
 }

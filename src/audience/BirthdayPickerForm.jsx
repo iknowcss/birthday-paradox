@@ -23,6 +23,29 @@ const MONTHS = [
   'December',
 ];
 
+const validate = (values) => {
+  const day = parseInt(values.day, 10);
+  const month = parseInt(values.month, 10);
+
+  if (day <= 0) {
+    return { day: 'Must be greater than 0' };
+  }
+
+  if (month === 2) {
+    if (day > 28) {
+      return { day: 'Must be 28 or less' };
+    }
+  } else if ([1, 3, 5, 7, 8, 10, 12].indexOf(month) >= 0) {
+    if (day > 31) {
+      return { day: 'Must be 31 or less' };
+    }
+  } else {
+    if (day > 30) {
+      return { day: 'Must be 30 or less' };
+    }
+  }
+};
+
 const RangeSelectField = (props) => {
   const { input, start, end, options, className, disabled} = props;
   return (
@@ -43,7 +66,13 @@ const RangeSelectField = (props) => {
 
 class BirthdayPickerForm extends Component {
   render() {
-    const { handleSubmit, disabled } = this.props;
+    const {
+      handleSubmit,
+      disabled,
+      invalid,
+      submitting,
+    } = this.props;
+
     return (
       <form className={this.props.className} onSubmit={handleSubmit}>
         <Grid>
@@ -61,7 +90,7 @@ class BirthdayPickerForm extends Component {
               name="day"
               component={RangeSelectField}
               className={styles.inputField}
-              disabled={disabled}
+              disabled={disabled || submitting}
               start={1}
               end={31}
             />
@@ -79,7 +108,7 @@ class BirthdayPickerForm extends Component {
               name="month"
               component={RangeSelectField}
               className={styles.inputField}
-              disabled={disabled}
+              disabled={disabled || submitting}
               options={MONTHS.map((m, i) => ({ value: i + 1, text: m }))}
             />
           </Cell>
@@ -92,7 +121,7 @@ class BirthdayPickerForm extends Component {
           >
             <button
               className={classnames(theme.button, styles.submitButton)}
-              disabled={disabled}
+              disabled={disabled || submitting || invalid}
             >
               Submit
             </button>
@@ -117,6 +146,7 @@ export { BirthdayPickerForm as Pure };
 
 export default reduxForm({
   form: 'birthday-picker',
+  validate,
   initialValues: {
     day: 1,
     month: 1,
