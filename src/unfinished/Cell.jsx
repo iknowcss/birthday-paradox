@@ -19,11 +19,6 @@ const Cell = (props) => {
     tabLandPush,
     desktopPush,
     desktopBigPush,
-    // phone,
-    // tabPort,
-    // tabLand,
-    // desktop,
-    // bigDesktop,
   } = props;
 
   return (

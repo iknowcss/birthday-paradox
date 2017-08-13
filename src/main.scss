@@ -1,6 +1,13 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700);
 @import './unfinished/base';
+@import './theme/color';
+@import './theme/font';
 
 body {
-  font-family: Helvetica, sans-serif;
+  @include font-ssp();
+
+  background-color: $color-white;
+  border-top: 10px solid $color-navy;
+  color: $color-navy;
 }
 

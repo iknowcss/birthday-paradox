@@ -5,11 +5,20 @@
 .inputLabel {
   display: block;
   font-size: 24px;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 .inputField {
   font-family: Helvetica, sans-serif;
   font-size: 24px;
+  width: 90%;
+}
+
+.submitCell {
   text-align: center;
+}
+
+.submitButton {
+  font-size: 24px;
+  margin: 20px 0;
 }

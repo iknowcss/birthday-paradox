@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import range from 'lodash/range';
+import classnames from 'classnames';
 import Grid from '../unfinished/Grid';
 import Cell from '../unfinished/Cell';
 import styles from './BirthdayPickerForm.scss';
+import theme from '../theme/theme.scss';
 
 const MONTHS = [
   'January',
@@ -79,8 +81,13 @@ class BirthdayPickerForm extends Component {
           </Cell>
         </Grid>
         <Grid>
-          <Cell>
-            <button disabled={disabled}>Submit</button>
+          <Cell className={styles.submitCell} col={12}>
+            <button
+              className={classnames(theme.button, styles.submitButton)}
+              disabled={disabled}
+            >
+              Submit
+            </button>
           </Cell>
         </Grid>
       </form>

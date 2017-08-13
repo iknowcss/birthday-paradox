@@ -1,0 +1,37 @@
+@import './color';
+@import './font';
+
+@mixin transition($thing) {
+  transition: #{$thing} 0.3s cubic-bezier(0, 0, 0.2, 1);
+}
+
+@mixin shadow() {
+  @include transition(box-shadow);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+
+  &:hover {
+    box-shadow: 0 4px 10px 1px rgba(0, 0, 0, 0.23);
+  }
+}
+
+.h1 {
+  font-size: 50px;
+}
+
+.button {
+  @include font-ssp();
+  @include shadow();
+
+  background-color: $color-sky-blue;
+  border: none;
+  border-radius: 3px;
+  color: $color-white;
+  box-sizing: border-box;
+  padding: 0 1.5em;
+  line-height: 2em;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: $color-sky-blue--light;
+  }
+}
