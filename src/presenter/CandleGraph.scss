@@ -10,8 +10,6 @@ $axis-height: 20px;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-end;
-  //width: $width;
-  //height: $height;
 }
 
 .chart {
@@ -75,25 +73,33 @@ $axis-height: 20px;
   @include transition(height);
 
   font-size: 20px;
-  background-color: $color-navy;
+  background-color: $color-royal-blue;
   text-align: center;
   flex-grow: 1;
   position: relative;
-  border-right: 1px solid $color-navy--light;
+  border-right: 1px solid $color-royal-blue--light;
 
-  &:nth-child(5n) &Label {
+  &:nth-child(5n + 10) &Label {
     display: block;
   }
 
   &:hover {
-    background-color: $color-sky-blue;
+    background-color: $color-navy;
   }
 
   &:hover &Label {
-    background-color: $color-sky-blue;
+    background-color: $color-navy;
     display: block;
     z-index: 2;
     padding: 0 100%;
+  }
+
+  &Highlight {
+    transition: background-color 0.3s cubic-bezier(0, 0, 0.2, 1),
+    border-right-color 0.3s cubic-bezier(0, 0, 0.2, 1);
+
+    background-color: $color-roof-terracotta;
+    border-right-color: $color-roof-terracotta--light;
   }
 
   &Label {
