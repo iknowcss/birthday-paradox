@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Switch, Route, Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import get from 'lodash/get';
@@ -13,20 +15,41 @@ class PresenterPage extends Component {
   }
 
   render() {
-    switch (this.props.sqsStatus) {
-      case 'ready':
-        return <div>Loading...</div>;
-      case 'active':
-        return <BirthdayList birthdays={this.props.birthdays} />;
-      case 'error':
-      default:
-        return <div>Could not connect to SQS</div>;
-    }
+    return (
+      <Switch>
+        {this.props.sqsStatus === 'ready' ? (
+          <Route exact path="/presenter" component={() => <div>Loading...</div>} />
+        ) : null}
+
+        {this.props.sqsStatus === 'active' ? (
+          <Route path="/presenter" component={() => (
+            <Switch>
+              <Route exact path="/presenter" component={() => <div>
+                <div>{this.props.birthdays.length} birthdays collected</div>
+                <Link to="/presenter/graph">Start!</Link>
+              </div>} />
+
+              <Route exact path="/presenter/graph" component={() => (
+                <BirthdayList birthdays={this.props.birthdays} />
+              )} />
+
+              <Redirect to="/presenter"/>
+            </Switch>
+          )} />
+        ) : null}
+
+        {this.props.sqsStatus === 'error' ? (
+          <Route exact path="/presenter" component={() => <div>Error!</div>} />
+        ) : null}
+
+        <Redirect to="/presenter"/>
+      </Switch>
+    );
   }
 }
 
 PresenterPage.propTypes = {
-  sqsStatus: PropTypes.string.isRequired,
+  sqsStatus: PropTypes.oneOf(['ready', 'active', 'error']).isRequired,
   birthdays: PropTypes.array.isRequired,
   accessKeyId: PropTypes.string,
   secretAccessKey: PropTypes.string,

@@ -8,9 +8,7 @@ class BirthdayList extends Component {
     super();
 
     this.state = { active: false };
-    setTimeout(() => {
-      this.setState({ active: true })
-    }, 1000);
+    setTimeout(() => this.setState({ active: true }));
   }
 
   renderNoBirthdayMessage() {
