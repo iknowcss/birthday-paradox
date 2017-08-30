@@ -4,7 +4,6 @@ import { AppContainer } from 'react-hot-loader';
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { hashHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
 import './main.scss';
 import reducer from './reducer';
 import AppRoot from './AppRoot';
@@ -20,13 +19,12 @@ if (window.__REDUX_DEVTOOLS_EXTENSION__) {
 // - Create the store and init services ----------------------------------------
 
 const store = createStore(reducer, compose(...enhancers));
-const history = syncHistoryWithStore(hashHistory, store);
 
 // - Initial render ------------------------------------------------------------
 
 const rootElement = document.getElementById('app'); // eslint-disable-line no-undef
 ReactDOM.render(React.createElement(AppContainer, null,
-  React.createElement(AppRoot, { store, history }),
+  React.createElement(AppRoot, { store }),
 ), rootElement);
 
 // - Hot re-render -------------------------------------------------------------
@@ -35,7 +33,7 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
   module.hot.accept('./AppRoot', () => {
     const NextAppRoot = require('./AppRoot').default; // eslint-disable-line global-require
     ReactDOM.render(React.createElement(AppContainer, null,
-      React.createElement(NextAppRoot, { store, history }),
+      React.createElement(NextAppRoot, { store }),
     ), rootElement);
   });
 }
