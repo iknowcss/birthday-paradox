@@ -1,0 +1,108 @@
+@import '../theme/color';
+@import '../theme/theme';
+
+$width: 500px;
+$height: 400px;
+$axis-height: 20px;
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  //width: $width;
+  //height: $height;
+}
+
+.chart {
+  &Area {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    width: $width - $axis-height;
+    height: $height - $axis-height;
+    flex-grow: 1;
+  }
+
+  &XAxis, &YAxis {
+    font-size: 16px;
+
+    &Label {
+      display: inline-block;
+      line-height: $axis-height;
+      background-color: white;
+      padding: 0 0.5em;
+    }
+  }
+
+  &XAxis {
+    height: $axis-height;
+    width: 100%;
+    padding-left: $axis-height;
+    text-align: center;
+
+    &:before {
+      content: '';
+      display: block;
+      border-bottom: 1px solid black;
+      margin-top: $axis-height / 2 - 1;
+      margin-bottom: -$axis-height / 2;
+    }
+  }
+
+  &YAxis {
+    width: $axis-height;
+    position: relative;
+
+    &Label {
+      transform: rotate(-90deg) translateX(-50%);
+      transform-origin: 0 0;
+      position: absolute;
+      top: 50%;
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      border-right: 1px solid black;
+      width: $axis-height / 2 - 1;
+      height: 100%;
+    }
+  }
+}
+
+.bar {
+  @include transition(height);
+
+  font-size: 20px;
+  background-color: $color-navy;
+  text-align: center;
+  flex-grow: 1;
+  position: relative;
+  border-right: 1px solid $color-navy--light;
+
+  &:nth-child(5n) &Label {
+    display: block;
+  }
+
+  &:hover {
+    background-color: $color-sky-blue;
+  }
+
+  &:hover &Label {
+    background-color: $color-sky-blue;
+    display: block;
+    z-index: 2;
+    padding: 0 100%;
+  }
+
+  &Label {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: white;
+  }
+}
