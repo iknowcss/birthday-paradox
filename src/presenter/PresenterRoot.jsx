@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import get from 'lodash/get';
 import queryString from 'query-string';
-import BirthdayList from './BirthdayList';
 import { initSQS } from './presenterActionCreators';
+import PresenterFlow from './PresenterFlow';
 
-class PresenterPage extends Component {
+class PresenterRoot extends Component {
   componentDidMount() {
     const { accessKeyId, secretAccessKey } = this.props;
     this.props.initSQS({ accessKeyId, secretAccessKey });
@@ -23,18 +22,7 @@ class PresenterPage extends Component {
 
         {this.props.sqsStatus === 'active' ? (
           <Route path="/presenter" component={() => (
-            <Switch>
-              <Route exact path="/presenter" component={() => <div>
-                <div>{this.props.birthdays.length} birthdays collected</div>
-                <Link to="/presenter/graph">Start!</Link>
-              </div>} />
-
-              <Route exact path="/presenter/graph" component={() => (
-                <BirthdayList birthdays={this.props.birthdays} />
-              )} />
-
-              <Redirect to="/presenter"/>
-            </Switch>
+            <PresenterFlow birthdays={this.props.birthdays} />
           )} />
         ) : null}
 
@@ -48,19 +36,19 @@ class PresenterPage extends Component {
   }
 }
 
-PresenterPage.propTypes = {
+PresenterRoot.propTypes = {
   sqsStatus: PropTypes.oneOf(['ready', 'active', 'error']).isRequired,
   birthdays: PropTypes.array.isRequired,
   accessKeyId: PropTypes.string,
   secretAccessKey: PropTypes.string,
 };
 
-PresenterPage.defaultProps = {
+PresenterRoot.defaultProps = {
   accessKeyId: '',
   secretAccessKey: '',
 };
 
-export { PresenterPage as Pure };
+export { PresenterRoot as Pure };
 
 export default connect((state) => {
   const routeSearch = get(state.routing, 'locationBeforeTransitions.search');
@@ -103,4 +91,4 @@ export default connect((state) => {
   };
 }, {
   initSQS
-})(PresenterPage);
+})(PresenterRoot);
