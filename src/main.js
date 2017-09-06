@@ -4,6 +4,7 @@ import { AppContainer } from 'react-hot-loader';
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { hashHistory } from 'react-router';
+import screenfull from 'screenfull';
 import './main.scss';
 import reducer from './reducer';
 import AppRoot from './AppRoot';
@@ -37,3 +38,9 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
     ), rootElement);
   });
 }
+
+window.document.addEventListener("keydown", function(e) {
+  if (e.keyCode == 13) {
+    screenfull.request();
+  }
+}, false);
