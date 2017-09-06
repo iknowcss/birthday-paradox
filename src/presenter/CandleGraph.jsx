@@ -23,7 +23,9 @@ Bar.defaultProps = {
 class CandleGraph extends Component {
   render() {
     return (
-      <div className={styles.container}>
+      <div className={classnames(styles.container, {
+        [styles.hidden]: this.props.hidden
+      })}>
         <div className={styles.chartYAxis}>
           <span className={styles.chartYAxisLabel}>Probability</span>
         </div>
@@ -54,6 +56,7 @@ CandleGraph.defaultProps = {
   end: 70,
   active: false,
   peopleCount: 0,
+  hidden: false,
 };
 
 export default CandleGraph;

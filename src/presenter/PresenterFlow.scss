@@ -1,0 +1,18 @@
+.container {
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 100%;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.candleGraph {
+  flex-grow: 1;
+}
+
+.pieGraph {
+  display: flex;
+  flex-direction: column;
+}

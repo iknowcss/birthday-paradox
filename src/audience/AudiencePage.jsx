@@ -42,7 +42,7 @@ class AudiencePage extends Component {
     return (
       <div className={styles.successMessage} >
         <i/>
-        <div>Success!</div>
+        <div>Thanks!</div>
       </div>
     )
   }
@@ -55,13 +55,6 @@ class AudiencePage extends Component {
           phonePush={2}
           phoneCol={8}
         >
-          <button
-            className={classnames(theme.button)}
-            disabled={false}
-            onClick={this.handleSubmitAnotherClick}
-          >
-            Submit another
-          </button>
         </Cell>
       </Grid>
     )

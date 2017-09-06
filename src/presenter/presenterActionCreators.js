@@ -5,6 +5,8 @@ const {
   INIT_SQS,
   INIT_SQS_ERROR,
   SQS_POLL_SUCCESS,
+  PAGE_PREV,
+  PAGE_NEXT,
 } = actionTypes.presenter;
 
 export const initSQS = (options) => (dispatch, getState) => {
@@ -21,3 +23,7 @@ export const initSQS = (options) => (dispatch, getState) => {
 export function sqsPollSuccess(newMessages) {
   return { type: SQS_POLL_SUCCESS, messages: newMessages };
 }
+
+export const pageNext = () => ({ type: PAGE_NEXT });
+
+export const pagePrev = () => ({ type: PAGE_PREV });

@@ -1,49 +1,63 @@
 import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
+import autobind from 'react-autobind';
+import { connect } from 'react-redux';
+import { pagePrev, pageNext } from './presenterActionCreators';
 import CandleGraph from './CandleGraph';
+import PieGraph from './PieGraph';
+import ResultGrid from './ResultGrid';
+import styles from './PresenterFlow.scss';
 
-class Slide1 extends Component {
+const PAGES = [
+  () => <CandleGraph className={styles.candleGraph} />,
+  () => <CandleGraph className={styles.candleGraph} active />,
+  props => <CandleGraph className={styles.candleGraph} active peopleCount={props.birthdays.length} />,
+  props => <CandleGraph className={styles.candleGraph} active peopleCount={props.birthdays.length} hidden />,
+  props => <PieGraph className={styles.pieGraph} peopleCount={props.birthdays.length} hidden />,
+  props => <PieGraph className={styles.pieGraph} peopleCount={props.birthdays.length} />,
+  props => <PieGraph className={styles.pieGraph} peopleCount={props.birthdays.length} showLabel/>,
+  props => <PieGraph className={styles.pieGraph} peopleCount={props.birthdays.length} hidden/>,
+  props => <ResultGrid className={styles.resultGrid} birthdays={props.birthdays} hidden/>,
+  props => <ResultGrid className={styles.resultGrid} birthdays={props.birthdays} />,
+];
+
+class PresenterFlow extends Component {
   constructor() {
     super();
-
-    this.state = { page: 0 };
+    autobind(this, 'pageNext', 'pagePrev', 'handleKey');
   }
 
-  handleNextClick() {
-    this.setState({ page: this.state.page + 1 });
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKey);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKey);
+  }
+
+  handleKey(e) {
+    switch (e.key) {
+      case 'PageDown':
+      case 'ArrowRight':
+        this.props.pageNext();
+        e.preventDefault();
+        break;
+      case 'PageUp':
+      case 'ArrowLeft':
+        this.props.pagePrev();
+        e.preventDefault();
+        break;
+    }
   }
 
   render() {
     return (
-      <div>
-        <CandleGraph
-          active={this.state.page >= 1}
-          peopleCount={this.state.page >= 2 ? this.props.birthdays.length : 0}
-        />
-        <button onClick={() => this.handleNextClick()}>Next</button>
+      <div className={styles.container}>
+        {PAGES[Math.min(this.props.page - 1, PAGES.length - 1)](this.props)}
       </div>
     );
   }
 }
 
-class PresenterFlow extends Component {
-  render() {
-    return (
-      <Switch>
-        <Route exact path="/presenter" component={() => <div>
-          <div>{this.props.birthdays.length} birthdays collected</div>
-          <Link to="/presenter/graph">Start!</Link>
-        </div>}/>
-
-        <Route path="/presenter/graph" component={() => (
-          <Slide1 birthdays={this.props.birthdays} />
-        )} />
-
-        <Redirect to="/presenter"/>
-      </Switch>
-    );
-  }
-}
-
-export default PresenterFlow;
+export default connect(state => ({
+  page: state.app.presenter.page
+}), { pagePrev, pageNext })(PresenterFlow);

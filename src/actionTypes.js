@@ -13,5 +13,7 @@ export default {
     INIT_SQS: '@@birthday-paradox/presenter/INIT_SQS',
     INIT_SQS_ERROR: '@@birthday-paradox/presenter/INIT_SQS_ERROR',
     SQS_POLL_SUCCESS: '@@birthday-paradox/presenter/SQS_POLL_SUCCESS',
+    PAGE_PREV: '@@birthday-paradox/presenter/PAGE_PREV',
+    PAGE_NEXT: '@@birthday-paradox/presenter/PAGE_NEXT',
   }
 };

@@ -1,0 +1,34 @@
+@import '../theme/color';
+@import '../theme/theme';
+
+.container {
+  @include transition(opacity);
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+
+  &.hidden {
+    opacity: 0;
+  }
+
+  .matchDate,
+  .noMatches{
+    width: 30%;
+    text-align: center;
+    border: 1px solid $color-navy;
+    margin-bottom: 1rem;
+    padding: 1rem 0;
+    font-size: 1.8rem;
+  }
+
+  .matchDate {
+  }
+
+  .noMatches {
+    color: $color-roof-terracotta;
+  }
+}

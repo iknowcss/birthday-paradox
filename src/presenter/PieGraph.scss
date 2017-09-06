@@ -1,0 +1,42 @@
+@import '../theme/color';
+@import '../theme/theme';
+
+.container {
+  @include transition(opacity);
+
+  width: 100%;
+  display: flex;
+  align-content: space-around;
+  align-items: center;
+  flex-direction: column;
+
+  &.hidden {
+    opacity: 0;
+  }
+}
+
+.pie {
+  width: 10rem;
+  height: 10rem;
+
+  &A {
+    fill: $color-roof-terracotta;
+  }
+
+  &B {
+    fill: $color-royal-blue;
+  }
+
+  &Label {
+    @include transition(opacity);
+
+    opacity: 0;
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 2rem;
+
+    &Visible {
+      opacity: 1;
+    }
+  }
+}
