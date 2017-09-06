@@ -35,8 +35,6 @@ export const submitBirthday = birthday => async (dispatch) => {
   } else {
     dispatch({ type: SUBMIT_BIRTHDAY_SUCCESS });
   }
-
-  setTimeout(() => {
-    dispatch({ type: SUBMIT_BIRTHDAY_RESET });
-  }, 2000);
 };
+
+export const resetBirthdayForm = () => ({ type: SUBMIT_BIRTHDAY_RESET });

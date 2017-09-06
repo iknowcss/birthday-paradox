@@ -1,3 +1,5 @@
+@import '../theme/color';
+
 .flexContainer {
   height: 100%;
   display: flex;
@@ -13,4 +15,31 @@
 .instructions {
   text-align: center;
   padding: .5rem 0;
+}
+
+.success {
+  &Cell {
+    text-align: center;
+    padding-top: 1rem;
+  }
+
+  &Message {
+    i {
+      &:before {
+        content: 'L';
+        transform: scaleX(-1) rotate(-40deg) translateX(-5%);
+        display: block;
+        color: $color-white;
+      }
+
+      margin-bottom: 1rem;
+      text-align: center;
+      font-size: 4rem;
+      display: inline-block;
+      width: 1.2em;
+      height: 1.2em;
+      border-radius: 0.6em;
+      background-color: $color-sushi;
+    }
+  }
 }

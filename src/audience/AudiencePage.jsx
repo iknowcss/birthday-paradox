@@ -4,22 +4,70 @@ import { connect } from 'react-redux';
 import autobind from 'react-autobind';
 import classnames from 'classnames';
 import theme from '../theme/theme.scss';
+import Grid from '../unfinished/Grid';
+import Cell from '../unfinished/Cell';
 import styles from './AudiencePage.scss';
 import BirthdayPickerForm from './BirthdayPickerForm';
-import { submitBirthday } from './audienceActionCreators';
+import { submitBirthday, resetBirthdayForm } from './audienceActionCreators';
 
 class AudiencePage extends Component {
   constructor() {
     super();
-    autobind(this, 'handleBirthdayPickerFormSubmit')
+    autobind(
+      this,
+      'handleBirthdayPickerFormSubmit',
+      'handleSubmitAnotherClick',
+    );
   }
 
   handleBirthdayPickerFormSubmit(data) {
     this.props.submitBirthday(data);
   }
 
+  handleSubmitAnotherClick() {
+    this.props.resetBirthdayForm();
+  }
+
+  renderForm() {
+    return (
+      <BirthdayPickerForm
+        className={styles.form}
+        disabled={this.props.submitStatus !== 'ready'}
+        onSubmit={this.handleBirthdayPickerFormSubmit}
+      />
+    )
+  }
+
+  renderSuccessTick() {
+    return (
+      <div className={styles.successMessage} >
+        <i/>
+        <div>Success!</div>
+      </div>
+    )
+  }
+
+  renderSuccess() {
+    return (
+      <Grid>
+        <Cell
+          className={styles.successCell}
+          phonePush={2}
+          phoneCol={8}
+        >
+          <button
+            className={classnames(theme.button)}
+            disabled={false}
+            onClick={this.handleSubmitAnotherClick}
+          >
+            Submit another
+          </button>
+        </Cell>
+      </Grid>
+    )
+  }
+
   render() {
-    const { submitStatus } = this.props;
     return (
       <div className={styles.flexContainer}>
         <h1
@@ -27,12 +75,14 @@ class AudiencePage extends Component {
         >The Birthday Paradox</h1>
         <h2
           className={classnames(theme.h2, styles.instructions)}
-        >Enter your birthday</h2>
-        <BirthdayPickerForm
-          className={styles.form}
-          disabled={submitStatus !== 'ready'}
-          onSubmit={this.handleBirthdayPickerFormSubmit}
-        />
+        >{this.props.submitStatus === 'success'
+          ? this.renderSuccessTick()
+          : 'Enter your birthday'
+        }</h2>
+        {this.props.submitStatus === 'success'
+          ? this.renderSuccess()
+          : this.renderForm()
+        }
       </div>
     )
   }
@@ -47,4 +97,4 @@ export { AudiencePage as Pure };
 
 export default connect(state => ({
   submitStatus: state.app.audience.submitStatus,
-}), {submitBirthday})(AudiencePage);
+}), { submitBirthday, resetBirthdayForm })(AudiencePage);
