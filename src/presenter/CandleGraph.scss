@@ -1,8 +1,8 @@
 @import '../theme/color';
 @import '../theme/theme';
 
-$width: 500px;
-$axis-height: 20px;
+//$width: 500px;
+$axis-height: 1.8rem;
 
 .container {
   @include transition(opacity);
@@ -23,13 +23,12 @@ $axis-height: 20px;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
-    width: $width - $axis-height;
-    height: 90%;
+    height: 85%;
     flex-grow: 1;
   }
 
   &XAxis, &YAxis {
-    font-size: 16px;
+    font-size: $axis-height;
 
     &Label {
       display: inline-block;
@@ -49,7 +48,7 @@ $axis-height: 20px;
       content: '';
       display: block;
       border-bottom: 1px solid black;
-      margin-top: $axis-height / 2 - 1;
+      margin-top: $axis-height / 2;
       margin-bottom: -$axis-height / 2;
     }
   }
@@ -69,7 +68,7 @@ $axis-height: 20px;
       content: '';
       display: block;
       border-right: 1px solid black;
-      width: $axis-height / 2 - 1;
+      width: $axis-height / 2;
       height: 100%;
     }
   }

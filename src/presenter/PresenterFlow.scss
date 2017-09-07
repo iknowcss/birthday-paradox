@@ -1,5 +1,4 @@
 .container {
-
   display: flex;
   justify-content: flex-start;
   align-items: stretch;
@@ -9,10 +8,15 @@
 }
 
 .candleGraph {
-  flex-grow: 1;
+  width: 65%;
 }
 
 .pieGraph {
-  display: flex;
-  flex-direction: column;
+  width: 35%;
+}
+
+.startBar {
+  text-align: center;
+  width: 100%;
+  font-size: 5rem;
 }

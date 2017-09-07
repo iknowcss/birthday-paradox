@@ -5,25 +5,68 @@ import { pagePrev, pageNext } from './presenterActionCreators';
 import CandleGraph from './CandleGraph';
 import PieGraph from './PieGraph';
 import ResultGrid from './ResultGrid';
+import Drumroll from './Drumroll';
 import styles from './PresenterFlow.scss';
 
 const PAGES = [
-  () => <CandleGraph className={styles.candleGraph} />,
-  () => <CandleGraph className={styles.candleGraph} active />,
-  props => <CandleGraph className={styles.candleGraph} active peopleCount={props.birthdays.length} />,
-  props => <CandleGraph className={styles.candleGraph} active peopleCount={props.birthdays.length} hidden />,
-  props => <PieGraph className={styles.pieGraph} peopleCount={props.birthdays.length} hidden />,
-  props => <PieGraph className={styles.pieGraph} peopleCount={props.birthdays.length} />,
-  props => <PieGraph className={styles.pieGraph} peopleCount={props.birthdays.length} showLabel/>,
-  props => <PieGraph className={styles.pieGraph} peopleCount={props.birthdays.length} hidden/>,
-  props => <ResultGrid className={styles.resultGrid} birthdays={props.birthdays} hidden/>,
-  props => <ResultGrid className={styles.resultGrid} birthdays={props.birthdays} />,
+  () => <div className={styles.startBar}>Graphs!</div>,
+  () => (
+    <div className={styles.container}>
+      <CandleGraph className={styles.candleGraph} peopleCount={1} hidden />
+      <PieGraph className={styles.pieGraph} peopleCount={1} hidden />
+    </div>
+  ),
+  () => (
+    <div className={styles.container}>
+      <CandleGraph className={styles.candleGraph} peopleCount={1} />
+      <PieGraph className={styles.pieGraph} peopleCount={1} hidden />
+    </div>
+  ),
+  () => (
+    <div className={styles.container}>
+      <CandleGraph className={styles.candleGraph} peopleCount={1} active />
+      <PieGraph className={styles.pieGraph} peopleCount={1} />
+    </div>
+  ),
+  props => (
+    <div className={styles.container}>
+      <CandleGraph className={styles.candleGraph} peopleCount={props.birthdays.length} active />
+      <PieGraph className={styles.pieGraph} peopleCount={props.birthdays.length} />
+    </div>
+  ),
+  props => (
+    <div className={styles.container}>
+      <CandleGraph className={styles.candleGraph} peopleCount={props.birthdays.length} active />
+      <PieGraph className={styles.pieGraph} peopleCount={props.birthdays.length} showLabel />
+    </div>
+  ),
+  props => (
+    <div className={styles.container}>
+      <CandleGraph className={styles.candleGraph} peopleCount={props.birthdays.length} hidden />
+      <PieGraph className={styles.pieGraph} peopleCount={props.birthdays.length} hidden />
+    </div>
+  ),
+  props => (
+    <div className={styles.container}>
+      <Drumroll />
+    </div>
+  ),
+  props => (
+    <div className={styles.container}>
+      <ResultGrid className={styles.resultGrid} birthdays={props.birthdays} hidden/>
+    </div>
+  ),
+  props => (
+    <div className={styles.container}>
+      <ResultGrid className={styles.resultGrid} birthdays={props.birthdays} />
+    </div>
+  ),
 ];
 
 class PresenterFlow extends Component {
   constructor() {
     super();
-    autobind(this, 'pageNext', 'pagePrev', 'handleKey');
+    autobind(this, 'handleKey');
   }
 
   componentDidMount() {
@@ -50,11 +93,7 @@ class PresenterFlow extends Component {
   }
 
   render() {
-    return (
-      <div className={styles.container}>
-        {PAGES[Math.min(this.props.page - 1, PAGES.length - 1)](this.props)}
-      </div>
-    );
+    return PAGES[Math.min(this.props.page - 1, PAGES.length - 1)](this.props);
   }
 }
 

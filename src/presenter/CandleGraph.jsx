@@ -23,7 +23,7 @@ Bar.defaultProps = {
 class CandleGraph extends Component {
   render() {
     return (
-      <div className={classnames(styles.container, {
+      <div className={classnames(this.props.className, styles.container, {
         [styles.hidden]: this.props.hidden
       })}>
         <div className={styles.chartYAxis}>
@@ -34,6 +34,7 @@ class CandleGraph extends Component {
             const highlight = i < this.props.peopleCount;
             return (
               <Bar
+                key={i}
                 text={i + 1}
                 value={(1 - uniqBirthdayProb(i + 1)) * 100}
                 active={this.props.active}

@@ -29,9 +29,9 @@ function fff(r, _from, _to) {
 
 class PieGraph extends Component {
   render() {
-    const prob = uniqBirthdayProb(this.props.peopleCount);
+    const prob = 1 - uniqBirthdayProb(this.props.peopleCount);
     return (
-      <div className={classnames(styles.container, {
+      <div className={classnames(this.props.className, styles.container, {
         [styles.hidden]: this.props.hidden
       })}>
         <svg viewBox="0 0 100 100" className={styles.pie} xmlns="http://www.w3.org/2000/svg">
