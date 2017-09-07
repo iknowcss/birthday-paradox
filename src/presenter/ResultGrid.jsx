@@ -41,6 +41,10 @@ function th(day) {
 }
 
 class ResultGrid extends Component {
+  componentDidMount() {
+    document.getElementById('tada').play();
+  }
+
   render() {
     const collisions = calculateCollisions(this.props.birthdays);
     return (
